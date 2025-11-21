@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GitHub Developer Profile Insight Viewer - Search and view GitHub user profiles.">
+    <title>GitHub Profile Viewer</title>
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="container">
+            <h1>GitHub Profile Viewer</h1>
+            <div id="search-container"></div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="error-container" aria-live="polite"></div>
+
+        <div class="app-layout">
+            <aside id="saved-profiles-container" class="saved-profiles"></aside>
+            <div id="profile-container" class="profile-grid">
+                <!-- Profile content will be injected here -->
+                <p class="placeholder-text">Search for a GitHub user to see their profile.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2025 GitHub Profile Viewer</p>
+        </div>
+    </footer>
+
+    <script type="module" src="scripts/app.js"></script>
+</body>
+</html>
