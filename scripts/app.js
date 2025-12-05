@@ -3,6 +3,7 @@ import { Router } from './core/router.js';
 import { SearchComponent } from './components/search.js';
 import { ProfileCard } from './components/profileCard.js';
 import { SavedProfilesComponent } from './components/savedProfiles.js';
+import { SettingsComponent } from './components/settings.js';
 
 /**
  * Application Entry Point
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new SearchComponent('search-container');
     new ProfileCard('profile-container');
     new SavedProfilesComponent('saved-profiles-container');
+    new SettingsComponent('settings-container', 'settings-btn');
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')

@@ -2,9 +2,30 @@ const BASE_URL = 'https://api.github.com';
 
 export class GithubApi {
     constructor() {
-        this.headers = {
+        this.apiKeyKey = 'github_api_key';
+    }
+
+    getHeaders() {
+        const headers = {
             'Accept': 'application/vnd.github.v3+json'
         };
+        const apiKey = this.getApiKey();
+        if (apiKey) {
+            headers['Authorization'] = `token ${apiKey}`;
+        }
+        return headers;
+    }
+
+    setApiKey(key) {
+        if (key) {
+            localStorage.setItem(this.apiKeyKey, key);
+        } else {
+            localStorage.removeItem(this.apiKeyKey);
+        }
+    }
+
+    getApiKey() {
+        return localStorage.getItem(this.apiKeyKey);
     }
 
     /**
@@ -15,14 +36,16 @@ export class GithubApi {
     async getUser(username) {
         try {
             const response = await fetch(`${BASE_URL}/users/${username}`, {
-                headers: this.headers
+                headers: this.getHeaders()
             });
 
             if (!response.ok) {
                 if (response.status === 404) {
                     throw new Error('User not found');
                 } else if (response.status === 403) {
-                    throw new Error('API Rate limit exceeded. Please try again later.');
+                    throw new Error('API Rate limit exceeded. Please add an API Key in settings.');
+                } else if (response.status === 401) {
+                    throw new Error('Invalid API Key. Please check your settings.');
                 }
                 throw new Error(`GitHub API Error: ${response.statusText}`);
             }
@@ -45,10 +68,15 @@ export class GithubApi {
         try {
             const response = await fetch(
                 `${BASE_URL}/users/${username}/repos?sort=updated&page=${page}&per_page=${perPage}`,
-                { headers: this.headers }
+                { headers: this.getHeaders() }
             );
 
             if (!response.ok) {
+                if (response.status === 403) {
+                    throw new Error('API Rate limit exceeded. Please add an API Key in settings.');
+                } else if (response.status === 401) {
+                    throw new Error('Invalid API Key. Please check your settings.');
+                }
                 throw new Error('Failed to fetch repositories');
             }
 

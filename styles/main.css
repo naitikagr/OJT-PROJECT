@@ -84,10 +84,26 @@ a:hover {
 .app-footer {
     margin-top: var(--spacing-xl);
     padding: var(--spacing-xl) 0;
-    text-align: center;
     color: var(--text-tertiary);
     border-top: 1px solid var(--bg-border);
     font-size: var(--font-size-sm);
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.btn-small {
+    padding: 4px;
+    color: var(--text-tertiary);
+}
+
+.btn-small:hover {
+    color: var(--primary-color);
+    background: transparent;
 }
 
 @keyframes fadeIn {

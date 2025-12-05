@@ -1,6 +1,7 @@
 import { eventBus } from '../core/eventBus.js';
 import { githubApi } from '../services/githubApi.js';
 import { storageService } from '../services/storage.js';
+import { escapeHTML } from '../utils/sanitize.js';
 
 export class ProfileCard {
     constructor(containerId) {
@@ -69,8 +70,8 @@ export class ProfileCard {
             return `
             <div class="repo-card">
                 <div>
-                    <a href="${repo.html_url}" target="_blank" class="repo-name">${repo.name}</a>
-                    <p class="repo-desc">${repo.description || 'No description available'}</p>
+                    <a href="${repo.html_url}" target="_blank" class="repo-name">${escapeHTML(repo.name)}</a>
+                    <p class="repo-desc">${escapeHTML(repo.description || 'No description available')}</p>
                 </div>
                 <div class="repo-meta">
                     ${repo.language ? `
@@ -99,9 +100,9 @@ export class ProfileCard {
                 <div class="profile-header">
                     <img src="${user.avatar_url}" alt="${user.login}'s avatar" class="profile-avatar">
                     <div class="profile-info">
-                        <h2>${user.name || user.login}</h2>
-                        <p class="profile-login">${user.login}</p>
-                        ${user.bio ? `<p class="profile-bio">${user.bio}</p>` : ''}
+                        <h2>${escapeHTML(user.name || user.login)}</h2>
+                        <p class="profile-login">${escapeHTML(user.login)}</p>
+                        ${user.bio ? `<p class="profile-bio">${escapeHTML(user.bio)}</p>` : ''}
                         
                         <div class="profile-stats">
                             <div class="stat-item">
